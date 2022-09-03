@@ -20,8 +20,8 @@ const displayCategories = categories => {
 }
 // All News categories
 
-const loadedNews = async () => {
-    const url = `https://openapi.programming-hero.com/api/news/category/01`
+const loadedNews = async (category_id) => {
+    const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
     const res = await fetch(url);
     const data = await res.json();
     cardList(data.data);
@@ -46,31 +46,28 @@ const cardList = cards => {
                             
                             <div>
                             <div class="row">
-                            <div class="col d-flex justify-content-start align-items-center">
-                                <div class="row g-0">
+                            <div class="col">
+                                <div class="row g-0 d-flex justify-content-start align-items-center">
                                     <div class="col-3">
-                                        <img src="/img/8123141.jpg" class="img-fluid rounded-start" alt="...">
+                                        <img src="${card.author.img}" class="img-fluid rounded" alt="...">
                                     </div>
                                     <div class="col-9">
                                         <div class="card-body">
-                                            <h5 class="card-title">hiiiiiii</h5>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                            <h5 class="card-title text-primary">${card.author.name ? card.author.name : 'Not Found'}</h5>
+                                            <p class="card-text"><small class="text-muted">${card.author.published_date}</small></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col d-flex justify-content-center align-items-center">
-                                <i class="fa-solid fa-eye px-2"></i>
-                                <h6 class="m-0">1.4M</h6>
+                                <i class="fa-solid fa-eye px-2 text-danger"></i>
+                                <h6 class="fw-bold m-0">${card.total_view ? card.total_view : 'No Rating'}</h6>
                             </div>
                             <div class="col d-flex justify-content-center align-items-center">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+                                <h6 class="fw-bold">${card.rating.number} <i class="fa-solid fa-star"></i></h6>
                             </div>
-                            <div class="col d-flex justify-content-end align-items-center">
-                                <i class="fa-sharp fa-solid fa-arrow-right"></i>
+                            <div class="col-1 d-flex justify-content-end align-items-center">
+                                <i class="fa-sharp fa-solid fa-arrow-right text-primary"></i>
                             </div>
                         </div>
                             </div>
@@ -83,5 +80,5 @@ const cardList = cards => {
     })
 }
 
-loadedNews();
+loadedNews('01');
 loadedNewsCategories();

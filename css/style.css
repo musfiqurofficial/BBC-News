@@ -2,19 +2,11 @@
     border: none;
     border-radius: 15px;
     transition: box-shadow 1s;
-}
-
-.card:hover {
     box-shadow: 0 0 20px #c8c8c8;
 }
 
-.card button {
-    border: none;
-    transition: background-color 0.3s;
-}
-
-.card button:hover {
-    background-color: tomato;
+.card:hover {
+    box-shadow: 0 0 10px #7da8ff;
 }
 
 .loading {
