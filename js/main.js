@@ -9,11 +9,11 @@ const loadedNewsCategories = () => {
 const displayCategories = categories => {
     const categoriesList = document.getElementById('categories-list');
     categories.forEach(category => {
-        console.log(category);
         const ulList = document.createElement('li');
         ulList.classList.add('nav-item');
         ulList.innerHTML = `
-        <a class="nav-link active" aria-current="page" href="#">${category.category_name}</a>
+        <button id="btnId" type="button" class="btn m-2 border active"onclick="loadedNews('${category.category_id}')" >${category.category_name}<span id="lengthNum" class="badge bg-warning ms-1"></span>
+        </button>
         `;
         categoriesList.appendChild(ulList);
     })
@@ -21,7 +21,9 @@ const displayCategories = categories => {
 // All News categories
 
 const loadedNews = async (category_id) => {
+    // console.log(category_id);
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
+    toggleSpinner(true);
     const res = await fetch(url);
     const data = await res.json();
     cardList(data.data);
@@ -29,8 +31,18 @@ const loadedNews = async (category_id) => {
 
 const cardList = cards => {
     const cardsId = document.getElementById('card-list');
+    cardsId.textContent = '';
+    const noNews = document.getElementById('alartMess');
+    if (cards.length === 0) {
+        noNews.classList.remove('d-none');
+    } else {
+        noNews.classList.add('d-none')
+    }
+
     cards.forEach(card => {
-        console.log(card);
+        const lengthNum = document.getElementById('newsLengthField');
+        const lengthValue = lengthNum.innerText = Object.keys(cards).length;
+
         const div = document.createElement('div');
         div.classList.add('col-12', 'gy-4');
         div.innerHTML = `
@@ -42,7 +54,7 @@ const cardList = cards => {
                     <div class="col-8">
                         <div class="card-body">
                             <h3 class="card-title">${card.title}</h3>
-                            <p class="card-text">${card.details.slice(0, 200)}...</p>
+                            <p class="card-text">${card.details.slice(0, 300)}...</p>
                             
                             <div>
                             <div class="row">
@@ -78,6 +90,16 @@ const cardList = cards => {
         `;
         cardsId.appendChild(div)
     })
+    toggleSpinner(false);
+}
+
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none')
+    } else {
+        loaderSection.classList.add('d-none')
+    }
 }
 
 loadedNews('01');
