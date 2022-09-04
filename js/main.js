@@ -87,7 +87,7 @@ const cardList = cards => {
                                 <h6 class="fw-bold m-0">${card.total_view ? card.total_view : 'No Rating'}</h6>
                             </div>
                             <div class="col d-flex justify-content-center align-items-center">
-                                <h6 class="fw-bold">${card.rating.number} <i class="fa-solid fa-star"></i></h6>
+                                <h6 class="fw-bold">${card.rating.number} <i class="fa-solid fa-star text-warning"></i></h6>
                             </div>
                             <div class="col-1 d-flex justify-content-end align-items-center">
 
