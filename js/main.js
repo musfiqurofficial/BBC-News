@@ -91,7 +91,7 @@ const cardList = cards => {
                             </div>
                             <div class="col-1 d-flex justify-content-end align-items-center">
 
-                                <button onclick = "arrowBtnFun()" type="button" class="border-0 bg-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-sharp fa-solid fa-arrow-right text-primary"></i>
+                                <button onclick="loadedNewsDetails('${card._id}')" type="button" class="border-0 bg-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-sharp fa-solid fa-arrow-right text-primary"></i>
                                 </button>
                                 
                             </div>
@@ -117,63 +117,48 @@ const toggleSpinner = isLoading => {
 }
 
 
-const arrowBtnFun = () => {
+const loadedNewsDetails = news_id => {
+    const url = `https://openapi.programming-hero.com/api/news/${news_id}
+    `
+    fetch(url)
+        .then(res => res.json())
+        .then(data => arrowBtnFun(data.data[0]))
+}
+
+const arrowBtnFun = card => {
+    const modalTitels = document.getElementById('staticBackdropLabel');
+    modalTitels.innerText = card.title;
+
     const newsModel = document.getElementById('newsModel');
-    newsModel.createElement('div');
-    div.innerHTML = `
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card-modal>
-                <img src=" ..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">${card.details.slice(0, 300)}...</p>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <h6 class="fw-bold">${card.rating.number} <i class="fa-solid fa-star"></i></h6>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="row g-0 d-flex justify-content-start align-items-center">
-                                    <div class="col-3">
-                                        <img src="${card.author.img}" class="img-fluid rounded" alt="...">
-                                    </div>
-                                    <div class="col-9">
-                                        <div class="card-body">
-                                            <h5 class="card-title text-primary">${card.author.name ?
-                                                card.author.name : 'Not Found'}</h5>
-                                            <p class="card-text"><small
-                                                    class="text-muted">${card.author.published_date}</small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="col d-flex justify-content-center align-items-center">
-                                    <i class="fa-solid fa-eye px-2 text-danger"></i>
-                                    <h6 class="fw-bold m-0">Hi</h6>
-                                </div>
-                            </div>
-                        </div>
+    newsModel.innerHTML = `
+        <img src="${card.image_url}" class="card-img-top mb-2" alt="...">
+        <p class="card-text">${card.details}</p>
+        <div class="d-flex justify-content-start align-items-center">
+            <h6 class="fw-bold">Rating: <small class="fw-light">${card.rating.number} <span class="text-warning">${card.rating.badge ? card.rating.badge : 'No Badge'}</span></small></h6>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row g-0 d-flex justify-content-start align-items-center">
+                    <div class="col-3">
+                        <img src="${card.author.img}" class="img-fluid p-2 rounded" alt="...">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Close</button>
+                    <div class="col-9">
+                        <div class="card-body">
+                            <h6 class="card-title text-primary">${card.author.name ? card.author.name : 'Not Found'}</h6>
+                            <p class="card-text"><small class="text-muted">${card.author.published_date}</small></p>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col d-flex align-items-center">
+                <div class="col d-flex justify-content-end">
+                    <i class="fa-solid fa-eye px-2 text-danger"></i>
+                    <h6 class="fw-bold m-0">${card.total_view ? card.total_view : 'No Rating'}</h6>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-    `
+    `;
 }
-
 
 
 
