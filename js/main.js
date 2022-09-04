@@ -132,7 +132,7 @@ const arrowBtnFun = card => {
     const newsModel = document.getElementById('newsModel');
     newsModel.innerHTML = `
         <img src="${card.image_url}" class="card-img-top mb-2" alt="...">
-        <p class="card-text">${card.details}</p>
+        <p class="card-text ">${card.details}</p>
         <div class="d-flex justify-content-start align-items-center">
             <h6 class="fw-bold">Rating: <small class="fw-light">${card.rating.number} <span class="text-warning">${card.rating.badge ? card.rating.badge : 'No Badge'}</span></small></h6>
         </div>
