@@ -58,20 +58,20 @@ const cardList = cards => {
         div.classList.add('col-12', 'gy-4');
         div.innerHTML = `
             <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-3">
-                        <img src="${card.thumbnail_url}" class="img-fluid rounded-start" alt="...">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-3">
+                        <img src="${card.image_url}" class="img-fluid img-thumbnail rounded img" alt="...">
                     </div>
-                    <div class="col-8">
+                    <div class="col-12 col-md-12 col-lg-8">
                         <div class="card-body">
                             <h3 class="card-title">${card.title}</h3>
                             <p class="card-text">${card.details.slice(0, 300)}...</p>
                             
                             <div>
                             <div class="row">
-                            <div class="col">
+                            <div class="col-12 col-md col-lg">
                                 <div class="row g-0 d-flex justify-content-start align-items-center">
-                                    <div class="col-3">
+                                    <div class="col-3 ">
                                         <img src="${card.author.img}" class="img-fluid rounded" alt="...">
                                     </div>
                                     <div class="col-9">
@@ -137,7 +137,7 @@ const arrowBtnFun = card => {
             <h6 class="fw-bold">Rating: <small class="fw-light">${card.rating.number} <span class="text-warning">${card.rating.badge ? card.rating.badge : 'No Badge'}</span></small></h6>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-12 col-md col-lg">
                 <div class="row g-0 d-flex justify-content-start align-items-center">
                     <div class="col-3">
                         <img src="${card.author.img}" class="img-fluid p-2 rounded" alt="...">
